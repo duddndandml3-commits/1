@@ -1,0 +1,13 @@
+{
+  "name": "하루기록",
+  "short_name": "하루기록",
+  "description": "달력으로 하루의 수입, 지출, 일기를 기록하는 앱",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f8fa",
+  "theme_color": "#f7f8fa",
+  "orientation": "any",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}

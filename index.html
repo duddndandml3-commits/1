@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7f8fa">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="하루기록">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="style.css">
+  <title>하루기록</title>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <h1>하루기록</h1>
+        <p>돈과 오늘의 이야기를 한 곳에</p>
+      </div>
+      <button class="icon-btn" id="todayBtn" aria-label="오늘로 이동">⌂</button>
+    </header>
+
+    <section class="summary">
+      <div class="summary-card income">
+        <span>이번 달 수입</span><strong id="monthIncome">0원</strong>
+      </div>
+      <div class="summary-card expense">
+        <span>이번 달 지출</span><strong id="monthExpense">0원</strong>
+      </div>
+      <div class="summary-card balance">
+        <span>이번 달 잔액</span><strong id="monthBalance">0원</strong>
+      </div>
+    </section>
+
+    <section class="calendar-card">
+      <div class="month-nav">
+        <button id="prevMonth" class="nav-btn">‹</button>
+        <h2 id="monthTitle"></h2>
+        <button id="nextMonth" class="nav-btn">›</button>
+      </div>
+      <div class="weekdays">
+        <span class="sun">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span class="sat">토</span>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+      <div class="legend">
+        <span><i class="dot green"></i>수입</span>
+        <span><i class="dot red"></i>지출</span>
+        <span><i class="dot blue"></i>일기</span>
+      </div>
+    </section>
+
+    <section class="quick">
+      <button id="openToday" class="primary-btn">오늘 기록하기</button>
+    </section>
+  </main>
+
+  <div class="sheet-backdrop hidden" id="sheetBackdrop"></div>
+  <section class="sheet hidden" id="daySheet" aria-modal="true">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <div>
+        <h2 id="dayTitle"></h2>
+        <p id="dayBalance"></p>
+      </div>
+      <button class="close-btn" id="closeSheet">×</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="money">가계부</button>
+      <button class="tab" data-tab="diary">일기</button>
+    </div>
+
+    <div id="moneyTab" class="tab-panel">
+      <div class="money-row">
+        <div class="money-card green-bg">
+          <span>수입</span><strong id="dayIncome">0원</strong>
+        </div>
+        <div class="money-card red-bg">
+          <span>지출</span><strong id="dayExpense">0원</strong>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h3>내역</h3>
+        <button class="small-btn" id="addTransaction">＋ 추가</button>
+      </div>
+      <div id="transactionList" class="transaction-list"></div>
+    </div>
+
+    <div id="diaryTab" class="tab-panel hidden">
+      <div class="mood-row">
+        <span>오늘의 기분</span>
+        <div id="moodButtons" class="moods">
+          <button data-mood="😊">😊</button>
+          <button data-mood="🙂">🙂</button>
+          <button data-mood="😐">😐</button>
+          <button data-mood="😔">😔</button>
+          <button data-mood="😣">😣</button>
+        </div>
+      </div>
+      <textarea id="diaryText" placeholder="오늘 하루 있었던 일을 적어보세요."></textarea>
+      <button class="primary-btn" id="saveDiary">일기 저장</button>
+    </div>
+  </section>
+
+  <div class="modal-backdrop hidden" id="transactionModal">
+    <div class="modal">
+      <h2 id="transactionTitle">지출 추가</h2>
+      <label>구분
+        <select id="transactionType">
+          <option value="expense">지출</option>
+          <option value="income">수입</option>
+        </select>
+      </label>
+      <label>카테고리
+        <select id="transactionCategory"></select>
+      </label>
+      <label>금액
+        <input id="transactionAmount" type="number" inputmode="numeric" placeholder="0">
+      </label>
+      <label>메모
+        <input id="transactionMemo" type="text" placeholder="선택사항">
+      </label>
+      <div class="modal-actions">
+        <button class="secondary-btn" id="cancelTransaction">취소</button>
+        <button class="primary-btn" id="saveTransaction">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast hidden" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
